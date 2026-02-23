@@ -6,7 +6,11 @@
   background: #f5f5f7;
   padding: 80px 80px;
   background-image: url("../public/cardboard.webp");
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
 
   @media (max-width: 768px) {
     padding: 60px 20px;
@@ -40,7 +44,7 @@
 .section7-subtitle {
   font-size: 18px;
   font-weight: 600;
-  color: #4169E1;
+  color: #4169e1;
   letter-spacing: 2px;
   text-transform: uppercase;
   margin: 0 0 24px 0;
@@ -64,7 +68,7 @@
   transition: border-color 0.3s ease;
 
   &.open {
-    border-bottom-color: #4169E1;
+    border-bottom-color: #4169e1;
   }
 
   &:last-child {
@@ -106,13 +110,13 @@
 
   &:hover {
     span:first-child {
-      color: #4169E1;
+      color: #4169e1;
     }
   }
 }
 
 .faq-icon {
-  font-size: 32px;
+  font-size: 28px;
   font-weight: 300;
   color: #000000;
   width: 32px;
@@ -121,23 +125,37 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  transition: all 0.3s ease;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease;
+  line-height: 1;
 
   @media (max-width: 768px) {
-    font-size: 28px;
+    font-size: 24px;
     width: 28px;
     height: 28px;
   }
 }
 
 .faq-item.open .faq-icon {
-  color: #4169E1;
-  transform: rotate(0deg);
+  color: #9acd32;
+  transform: rotate(45deg);
+}
+
+.faq-answer-wrapper {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.faq-item.open .faq-answer-wrapper {
+  grid-template-rows: 1fr;
+}
+
+.faq-answer-inner {
+  overflow: hidden;
 }
 
 .faq-answer {
   padding: 0 0 32px 0;
-  animation: slideDown 0.3s ease;
 
   @media (max-width: 768px) {
     padding: 0 0 24px 0;
@@ -157,22 +175,8 @@
   }
 }
 
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 .faq-item.open .faq-question {
   span:first-child {
     color: #000000;
   }
 }
-
-
-

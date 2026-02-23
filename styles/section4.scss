@@ -8,7 +8,11 @@
   overflow: hidden;
   padding: 20px 40px;
   padding-bottom: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
 
   @media (max-width: 768px) {
     padding: 60px 20px;
@@ -53,7 +57,7 @@
     img {
       width: 100%;
       height: auto;
-      filter: grayscale(100%) brightness(1.1);
+      // filter: grayscale(100%) brightness(1.1);
       mix-blend-mode: multiply;
     }
 
@@ -72,7 +76,7 @@
 .section4-subtitle {
   font-size: 14px;
   font-weight: 600;
-  color: #4169E1;
+  color: #4169e1;
   letter-spacing: 2px;
   text-transform: uppercase;
   margin: 0;
@@ -138,5 +142,3 @@
     flex: 1;
   }
 }
-
-

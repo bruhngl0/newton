@@ -14,10 +14,10 @@
         "secondary_cta": "APPLICATIONS"
       },
       "media": [
-        "/products/bellow-covers/heat-sealed-bellow.jpg",
-        "/products/bellow-covers/sewn2.jpg",
-        "/products/bellow-covers/sewn1.jpg",
-        "/products/bellow-covers/lamella1.jpg"
+        "/products/bellow-covers/hsb.png",
+        "/products/bellow-covers/sewn-2.png",
+        "/products/bellow-covers/sewn-1.png",
+        "/products/bellow-covers/lamella-3.png"
       ],
       "construction_variants": {
         "title": "CONSTRUCTION VARIANTS",
@@ -27,21 +27,21 @@
             "title": "SEWN BELLOWS",
             "description": "Fabric bellows constructed using industrial stitching techniques, suitable for general protection applications with controlled flexibility and cost efficiency.",
             "footer_label": "PRECISION STITCHED",
-            "media": "/products/bellow-covers/sewn1.jpg"
+            "media": "/products/bellow-covers/sewn-1.png"
           },
           {
             "tag": "HEAT-SEALED",
             "title": "THERMO-WELDED",
             "description": "Manufactured from thermoplastic-coated fabrics, precision-pleated and heat-welded to integrated PVC stiffeners at each fold, resulting in a sealed construction without stitched seams or needle holes.",
             "footer_label": "LIQUID & DUST PROOF",
-            "media": "/products/bellow-covers/heat-sealed-bellow.jpg"
+            "media": "/products/bellow-covers/hsb.png"
           },
           {
             "tag": "ARMORED",
             "title": "LAMELLA BELLOWS",
             "description": "Heavy-duty bellows incorporating stainless steel lamella plates mounted over each convolution, designed for applications involving hot chips, sparks, and high mechanical abrasion.",
             "footer_label": "EXTREME PROTECTION",
-            "media": "/products/bellow-covers/lamella1.jpg"
+            "media": "/products/bellow-covers/lamella-1.png"
           }
         ],
         "type_sections_with_pictures": [
@@ -50,7 +50,7 @@
             "body": [
               "Heat-Sealed Bellows Covers are manufactured from a single sheet of thermoplastic-coated technical fabric that is precision-pleated and heat-welded to PVC stiffeners at each fold. This process creates a uniform, sealed construction without stitched seams or needle holes, improving resistance to fine particles, light abrasives, oil, chips, and liquid exposure. The design can be produced in various shapes and sizes, with optional stainless-steel reinforcements for applications requiring enhanced protection against sparks or hot chips."
             ],
-            "media": "/products/bellow-covers/sewn1.jpg"
+            "media": "/products/bellow-covers/sewn-1.png"
           },
           {
             "title": "Lamella Bellows",
@@ -146,11 +146,11 @@
         }
       },
       "media": [
-        "/products/wiper-systems/wipers.jpg",
-        "/products/wiper-systems/formed-wipers-1.jpg",
-        "/products/wiper-systems/formed-wipers-2.jpg",
-        "/products/wiper-systems/moulded-wipers-1.jpg",
-        "/products/wiper-systems/moulded-wipers-2.jpg"
+        "/products/wiper-systems/wipers.png",
+        "/products/wiper-systems/formed-wipers-1.png",
+        "/products/wiper-systems/formed-wipers-2.png",
+        "/products/wiper-systems/moulded-wipers-1.png",
+        "/products/wiper-systems/moulded-wipers-2.png"
       ],
       "construction_variants": {
         "title": "CONSTRUCTION VARIANTS",
@@ -160,14 +160,14 @@
             "title": "MOULDED WIPERS",
             "description": "Precision-moulded wipers designed for consistent geometry, reliable sealing, and repeatable OEM performance.",
             "footer_label": "PICTURES",
-            "media": "/products/wiper-systems/moulded-wipers-1.jpg"
+            "media": "/products/wiper-systems/moulded-wipers-1.png"
           },
           {
             "tag": "FORMED",
             "title": "FORMED WIPERS",
             "description": "Formed wipers manufactured from wear-resistant strips and shaped to suit specific guideway profiles and mounting conditions.",
             "footer_label": "PICTURES",
-            "media": "/products/wiper-systems/formed-wipers-2.jpg"
+            "media": "/products/wiper-systems/formed-wipers-2.png"
           }
         ],
         "type_sections_with_pictures": [
@@ -303,9 +303,9 @@
         }
       },
       "media": [
-        "/products/apron-covers/ac-2.jpg",
-        "/products/apron-covers/ac-1.jpg",
-        "/products/apron-covers/ac-3.jpg"
+        "/products/apron-covers/ac-1.png",
+        "/products/apron-covers/ac-2.png",
+        "/products/apron-covers/ac-3.png"
       ],
       "construction_variants": {},
       "materials_expertise": {
@@ -399,10 +399,10 @@
         }
       },
       "media": [
-        "/products/roll-up-way-covers/rwc-1.jpg",
-        "/products/roll-up-way-covers/rwc-2.jpg",
-        "/products/roll-up-way-covers/rwc-3.jpg",
-        "/products/roll-up-way-covers/rwc-4.jpg"
+        "/products/roll-up-way-covers/rwc-1.png",
+        "/products/roll-up-way-covers/rwc-2.png",
+        "/products/roll-up-way-covers/rwc-3.png",
+        "/products/roll-up-way-covers/rwc-4.png"
       ],
       "construction_variants": {
         "title": "CONSTRUCTION VARIANTS",
@@ -540,10 +540,8 @@
         }
       },
       "media": [
-        "/products/telescopic-spring-covers/spring-covers-1.jpg",
-        "/products/telescopic-spring-covers/spring-covers-2.jpg",
-        "/products/telescopic-spring-covers/spring-covers-3.jpg",
-        "/products/telescopic-spring-covers/spring-covers-4.jpg"
+        "/products/telescopic-spring-covers/spring-covers-1.png",
+        "/products/telescopic-spring-covers/spring-covers-2.png"
       ],
       "construction_variants": {
         "title": "PHOTOGRAPHS",
@@ -605,11 +603,11 @@
         }
       },
       "media": [
-        "/products/telescopic-steel-way-covers/tsc-2.jpeg",
-        "/products/telescopic-steel-way-covers/tsc-1.jpeg",
         "/products/telescopic-steel-way-covers/tsc-1.png",
         "/products/telescopic-steel-way-covers/tsc-2.png",
-        "/products/telescopic-steel-way-covers/tsc-3.png"
+        "/products/telescopic-steel-way-covers/tsc-3.png",
+        "/products/telescopic-steel-way-covers/tsc-4.png",
+        "/products/telescopic-steel-way-covers/tsc-5.png"
       ],
       "construction_variants": {
         "title": "TELESCOPIC STEEL WAY COVERS",
@@ -707,9 +705,9 @@
         }
       },
       "media": [
-        "/products/cable-carriers-systems/ccs1.webp",
-        "/products/cable-carriers-systems/ccs2.jpeg",
-        "/products/cable-carriers-systems/ccs3.jpg"
+        "/products/cable-carriers-systems/ccs-1.png",
+        "/products/cable-carriers-systems/ccs-2.png",
+        "/products/cable-carriers-systems/ccs-3.png"
       ],
       "construction_variants": {
         "title": "",
@@ -784,10 +782,10 @@
         }
       },
       "media": [
-        "/products/cnc-sheet-metal-enclosures-assemblies/sme1.png",
-        "/products/cnc-sheet-metal-enclosures-assemblies/sme2.png",
-        "/products/cnc-sheet-metal-enclosures-assemblies/sme3.jpg",
-        "/products/cnc-sheet-metal-enclosures-assemblies/sme4.png"
+        "/products/cnc/sme1.png",
+        "/products/cnc/sme2.png",
+        "/products/cnc/sme3.png",
+        "/products/cnc/sme4.png"
       ],
       "construction_variants": {
         "title": "PRODUCT RANGE",

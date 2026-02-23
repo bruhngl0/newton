@@ -1,11 +1,14 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { gsap } from "gsap";
 import "../styles/hero.scss";
 
 const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const prevSlideRef = useRef(0);
+  const isAnimatingRef = useRef(false);
+  const touchStartRef = useRef(null);
 
   const heroImagesRef = useRef([]);
   const heroTextRef = useRef(null);
@@ -26,112 +29,122 @@ const Hero = () => {
     },
   ];
 
-  useEffect(() => {
-    const tl = gsap.timeline();
-
-    tl.from(heroImagesRef.current[0], {
-      scale: 1.2,
-      opacity: 0,
-      duration: 1.4,
-      ease: "power3.out",
-    }).from(
-      heroTextRef.current,
-      {
-        y: 100,
-        opacity: 0,
-        duration: 1,
-        ease: "power3.out",
-      },
-      "-=0.8",
-    );
-  }, []);
-
-  useEffect(() => {
-    carouselInterval.current = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % carouselImages.length);
-    }, 5000);
-
-    return () => clearInterval(carouselInterval.current);
-  }, [carouselImages.length]);
-
-  useEffect(() => {
-    if (currentSlide > 0) {
-      const currentImage = heroImagesRef.current[currentSlide];
-      const prevSlide =
-        currentSlide === 0 ? carouselImages.length - 1 : currentSlide - 1;
-      const prevImage = heroImagesRef.current[prevSlide];
-
-      const tl = gsap.timeline();
-
-      tl.to(prevImage, {
-        opacity: 0,
-        duration: 1,
-        ease: "power2.inOut",
-      }).fromTo(
-        currentImage,
-        {
-          opacity: 0,
-          scale: 1.1,
-        },
-        {
-          opacity: 1,
-          scale: 1,
-          duration: 1.2,
-          ease: "power2.out",
-        },
-        "-=0.5",
-      );
-    }
-  }, [currentSlide, carouselImages.length]);
-
-  useEffect(() => {
-    let scrollTimeout;
-
-    const handleScroll = () => {
-      // Pause carousel during scroll
-      if (carouselInterval.current) {
-        clearInterval(carouselInterval.current);
-      }
-
-      clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        // Resume carousel after scrolling stops
-        carouselInterval.current = setInterval(() => {
-          setCurrentSlide((prev) => (prev + 1) % carouselImages.length);
-        }, 5000);
-      }, 150);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      clearTimeout(scrollTimeout);
-    };
-  }, [carouselImages.length]);
-
-  const goToSlide = (index) => {
-    setCurrentSlide(index);
+  const startInterval = useCallback(() => {
     clearInterval(carouselInterval.current);
     carouselInterval.current = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % carouselImages.length);
     }, 5000);
+  }, [carouselImages.length]);
+
+  // Initial entry animation
+  useEffect(() => {
+    gsap.set(heroImagesRef.current[0], { opacity: 1, scale: 1 });
+    const tl = gsap.timeline();
+    tl.from(heroImagesRef.current[0], {
+      scale: 1.15,
+      opacity: 0,
+      duration: 1.6,
+      ease: "power3.out",
+    }).from(
+      heroTextRef.current,
+      { y: 80, opacity: 0, duration: 1.1, ease: "power3.out" },
+      "-=0.9",
+    );
+  }, []);
+
+  // Start autoplay
+  useEffect(() => {
+    startInterval();
+    return () => clearInterval(carouselInterval.current);
+  }, [startInterval]);
+
+  // Slide transition — runs for every slide change including wrap-around
+  useEffect(() => {
+    const prevSlide = prevSlideRef.current;
+    if (prevSlide === currentSlide || isAnimatingRef.current) return;
+
+    const currentImage = heroImagesRef.current[currentSlide];
+    const prevImage = heroImagesRef.current[prevSlide];
+    if (!currentImage || !prevImage) return;
+
+    isAnimatingRef.current = true;
+
+    const tl = gsap.timeline({
+      onComplete: () => {
+        prevSlideRef.current = currentSlide;
+        isAnimatingRef.current = false;
+      },
+    });
+
+    tl.to(prevImage, {
+      opacity: 0,
+      scale: 1.05,
+      duration: 0.9,
+      ease: "power2.inOut",
+    }).fromTo(
+      currentImage,
+      { opacity: 0, scale: 1.1 },
+      { opacity: 1, scale: 1, duration: 1.3, ease: "power2.out" },
+      "-=0.5",
+    );
+  }, [currentSlide]);
+
+  // Pause on scroll, resume after
+  useEffect(() => {
+    let scrollTimeout;
+    const handleScroll = () => {
+      clearInterval(carouselInterval.current);
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(startInterval, 200);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      clearTimeout(scrollTimeout);
+    };
+  }, [startInterval]);
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKey = (e) => {
+      if (e.key === "ArrowLeft")
+        goToSlide((currentSlide - 1 + carouselImages.length) % carouselImages.length);
+      if (e.key === "ArrowRight")
+        goToSlide((currentSlide + 1) % carouselImages.length);
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [currentSlide, carouselImages.length]);
+
+  const goToSlide = (index) => {
+    if (isAnimatingRef.current) return;
+    setCurrentSlide(index);
+    startInterval();
+  };
+
+  // Touch / swipe support
+  const handleTouchStart = (e) => {
+    touchStartRef.current = e.touches[0].clientX;
+  };
+  const handleTouchEnd = (e) => {
+    if (touchStartRef.current === null) return;
+    const delta = touchStartRef.current - e.changedTouches[0].clientX;
+    if (Math.abs(delta) > 50) {
+      delta > 0
+        ? goToSlide((currentSlide + 1) % carouselImages.length)
+        : goToSlide((currentSlide - 1 + carouselImages.length) % carouselImages.length);
+    }
+    touchStartRef.current = null;
   };
 
   return (
     <div className="lightship-container">
-      {/* Header */}
-      <header className="header">
-        <div className="header-logo"></div>
-        <div className="header-brand">SIGN-AGE</div>
-
-        <nav className="header-nav">
-          <a href="#technology">Technology</a>
-          <a href="#make-yours">Make it Yours</a>
-        </nav>
-      </header>
-
       {/* Hero Section */}
-      <section className="hero">
+      <section
+        className="hero"
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
         <div className="hero-carousel">
           {carouselImages.map((image, index) => (
             <div
@@ -158,6 +171,24 @@ const Hero = () => {
           commitment to personal relationships, ensuring your brand commands
           attention in any marketplace.
         </p>
+
+        {/* Prev / Next Arrows */}
+        <button
+          className="carousel-arrow carousel-arrow--prev"
+          onClick={() =>
+            goToSlide((currentSlide - 1 + carouselImages.length) % carouselImages.length)
+          }
+          aria-label="Previous slide"
+        >
+          &#8249;
+        </button>
+        <button
+          className="carousel-arrow carousel-arrow--next"
+          onClick={() => goToSlide((currentSlide + 1) % carouselImages.length)}
+          aria-label="Next slide"
+        >
+          &#8250;
+        </button>
 
         <div className="carousel-indicators">
           {carouselImages.map((_, index) => (

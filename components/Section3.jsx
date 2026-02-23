@@ -10,7 +10,7 @@ const CYCLE_IMAGES = ["one.png", "two.png", "three.png"];
 const products = catalogData.catalog.map((item, index) => ({
   id: item.id,
   title: item.name,
-  image: item.hero.image || CYCLE_IMAGES[index % CYCLE_IMAGES.length],
+  image: item.media?.[0] || CYCLE_IMAGES[index % CYCLE_IMAGES.length],
 }));
 
 const Section3 = () => {

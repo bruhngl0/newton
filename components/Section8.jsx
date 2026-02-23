@@ -49,7 +49,7 @@ const Section8 = () => {
               <div className="form-row name-row">
                 <div className="form-group">
                   <label htmlFor="firstName">
-                    Name <span className="required">*</span>
+                    First Name <span className="required">*</span>
                   </label>
                   <input
                     type="text"
@@ -59,22 +59,22 @@ const Section8 = () => {
                     onChange={handleInputChange}
                     required
                   />
-                  <span className="field-label">Last Name</span>
+                  <span className="field-label">First Name</span>
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="firstName">
-                    Name <span className="required">*</span>
+                  <label htmlFor="lastName">
+                    Last Name <span className="required">*</span>
                   </label>
                   <input
                     type="text"
-                    id="firstName"
-                    name="firstName"
+                    id="lastName"
+                    name="lastName"
                     value={formData.lastName}
                     onChange={handleInputChange}
                     required
                   />
-                  <span className="field-label">First Name</span>
+                  <span className="field-label">Last Name</span>
                 </div>
               </div>
 

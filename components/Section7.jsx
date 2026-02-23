@@ -84,15 +84,15 @@ const Section7 = () => {
                 aria-expanded={openIndex === index}
               >
                 <span>{faq.question}</span>
-                <span className="faq-icon">
-                  {openIndex === index ? "×" : "+"}
-                </span>
+                <span className="faq-icon">+</span>
               </button>
-              {openIndex === index && (
-                <div className="faq-answer">
-                  <p>{faq.answer}</p>
+              <div className="faq-answer-wrapper">
+                <div className="faq-answer-inner">
+                  <div className="faq-answer">
+                    <p>{faq.answer}</p>
+                  </div>
                 </div>
-              )}
+              </div>
             </div>
           ))}
         </div>

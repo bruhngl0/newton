@@ -117,7 +117,7 @@ const ProductInternal = () => {
             <div className="order-first lg:order-last lg:col-span-5 w-full flex flex-col items-center lg:items-end gap-4">
               {/* Main image — sliding strip */}
               <div
-                className="w-full max-w-md aspect-square bg-white/10 backdrop-blur-md rounded-3xl border border-white/20 shadow-2xl overflow-hidden cursor-grab active:cursor-grabbing select-none"
+                className="w-full max-w-md aspect-[4/3] bg-white/15 backdrop-blur-md rounded-3xl border border-white/20 shadow-2xl overflow-hidden cursor-grab active:cursor-grabbing select-none"
                 onTouchStart={handleTouchStart}
                 onTouchMove={handleTouchMove}
                 onTouchEnd={handleTouchEnd}
@@ -137,13 +137,13 @@ const ProductInternal = () => {
                   {heroImages.map((img, i) => (
                     <div
                       key={i}
-                      className="h-full shrink-0"
+                      className="h-full shrink-0 flex items-center justify-center bg-white/5"
                       style={{ width: `${100 / heroImages.length}%` }}
                     >
                       <img
                         src={img}
                         alt={`${hero.title} ${i + 1}`}
-                        className="w-full h-full object-cover pointer-events-none"
+                        className="w-full h-full object-contain pointer-events-none"
                         draggable={false}
                       />
                     </div>
@@ -228,11 +228,11 @@ const ProductInternal = () => {
                     key={i}
                     className="group flex flex-col bg-white rounded-[2rem] shadow-2xl overflow-hidden hover:scale-[1.02] transition-transform duration-500"
                   >
-                    <div className="h-[400px] bg-slate-100 overflow-hidden relative">
+                    <div className="h-[320px] bg-white overflow-hidden relative flex items-center justify-center">
                       {cardImages[i] ? (
                         <img
                           src={cardImages[i]}
-                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                          className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105 p-4"
                           alt={card.title}
                         />
                       ) : (
