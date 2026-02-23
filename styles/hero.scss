@@ -123,71 +123,54 @@ body {
   }
 }
 
-.hero-text {
+.hero-content {
   position: absolute;
-  bottom: 30%;
-  left: 19.1%;
-  transform: translateX(-50%);
-  font-size: clamp(30px, 10vw, 100px);
+  bottom: 12%;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  padding: 0 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 900px;
+
+  @media (max-width: 768px) {
+    bottom: 18%;
+    padding: 0 24px;
+    gap: 12px;
+  }
+}
+
+.hero-text {
+  font-size: clamp(40px, 9vw, 100px);
   font-weight: 400;
   color: $white;
-  z-index: 2;
   text-transform: uppercase;
   letter-spacing: -0.02em;
   text-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-
-  @media (max-width: 768px) {
-    bottom: 28%;
-    left: 50%;
-    transform: translateX(-50%);
-  }
+  line-height: 1;
+  margin: 0;
 }
 
 .hero-text-tag {
-  position: absolute;
-  bottom: 25%;
-  left: 33.9%;
-  transform: translateX(-50%);
-  font-size: 40px;
+  font-size: clamp(16px, 2.4vw, 36px);
   font-weight: 400;
   color: $white;
-  z-index: 2;
   text-transform: uppercase;
-  letter-spacing: -0.02em;
-  text-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-
-  @media (max-width: 768px) {
-    bottom: 22%;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: clamp(14px, 4.5vw, 22px);
-    text-align: center;
-    padding: 0 16px;
-  }
+  letter-spacing: -0.01em;
+  text-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  margin: 0;
 }
 
 .hero-text-des {
-  position: absolute;
-  bottom: 15%;
-  left: 36.9%;
-  transform: translateX(-50%);
-  font-size: 20px;
+  font-size: clamp(13px, 1.2vw, 18px);
   font-weight: 400;
-  color: $white;
-  z-index: 2;
-  text-transform: lowercase;
-  letter-spacing: -0.02em;
-  text-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-
-  @media (max-width: 768px) {
-    bottom: 14%;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: clamp(12px, 3.5vw, 16px);
-    text-align: center;
-    padding: 0 20px;
-    max-width: 100%;
-  }
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.6;
+  text-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  margin: 0;
+  max-width: 600px;
 }
 
 .scroll-indicator {

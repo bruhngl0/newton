@@ -221,7 +221,7 @@ const Section8 = () => {
         <img
           src="paperstrip.webp"
           style={{
-            backgroundColor: "#4169E1;",
+            backgroundColor: "#4169E1",
             transform: "rotate(180deg)",
           }}
         />

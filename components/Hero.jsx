@@ -158,19 +158,19 @@ const Hero = () => {
           ))}
         </div>
 
-        <h1 className="hero-text" ref={heroTextRef}>
-          SIGN AGE
-        </h1>
-
-        <h4 className="hero-text-tag">
-          Global Standards, Personal Partnerships.
-        </h4>
-
-        <p className="hero-text-des">
-          We pair 25 years of world-class manufacturing precision with a
-          commitment to personal relationships, ensuring your brand commands
-          attention in any marketplace.
-        </p>
+        <div className="hero-content">
+          <h1 className="hero-text" ref={heroTextRef}>
+            SIGN AGE
+          </h1>
+          <h4 className="hero-text-tag">
+            Global Standards, Personal Partnerships.
+          </h4>
+          <p className="hero-text-des">
+            We pair 25 years of world-class manufacturing precision with a
+            commitment to personal relationships, ensuring your brand commands
+            attention in any marketplace.
+          </p>
+        </div>
 
         {/* Prev / Next Arrows */}
         <button
