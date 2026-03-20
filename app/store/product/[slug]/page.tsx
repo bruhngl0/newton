@@ -1,28 +1,35 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React from "react";
 import { useParams } from "next/navigation";
 import {
   ShieldCheck,
   Target,
   Factory,
   Settings,
-  ArrowRight,
   ClipboardCheck,
   ChevronRight,
+  CheckCircle2,
 } from "lucide-react";
 import catalogData from "../../../../public/catalog.json";
+import ProductImageSlider from "../../../../components/ProductImageSlider";
 
 const CAPABILITY_ICONS = [
-  <Target key="target" size={30} className="text-[#9acd32]" />,
-  <Settings key="settings" size={30} className="text-[#9acd32]" />,
-  <Factory key="factory" size={30} className="text-[#9acd32]" />,
-  <ShieldCheck key="shield" size={30} className="text-[#9acd32]" />,
+  <Target key="target" size={30} />,
+  <Settings key="settings" size={30} />,
+  <Factory key="factory" size={30} />,
+  <ShieldCheck key="shield" size={30} />,
 ];
 
 const DEFAULT_HERO_IMAGE = "/heatsealed.jpg";
+const CREDIBILITY_POINTS = [
+  "35+ Years Experience",
+  "OEM Focused Manufacturing",
+  "Custom Engineering",
+  "Made in India",
+];
 
-const ProductInternal = () => {
+const ProductPage = () => {
   const params = useParams();
   const slug = params?.slug as string;
 
@@ -30,13 +37,16 @@ const ProductInternal = () => {
 
   if (!product) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-white">
         <div className="text-center">
-          <h1 className="text-4xl font-black text-blue-900 uppercase mb-4">
-            Product not found
+          <p className="text-xs uppercase tracking-widest text-slate-400 mb-3">
+            404
+          </p>
+          <h1 className="text-3xl font-black text-slate-900 mb-3">
+            Product Not Found
           </h1>
           <p className="text-slate-500">
-            No product matching <span className="font-bold">{slug}</span>.
+            No product matching <strong>{slug}</strong>.
           </p>
         </div>
       </div>
@@ -54,36 +64,11 @@ const ProductInternal = () => {
     cta,
   } = product;
 
-  // Hero gallery: use product.media from catalog if available
   const heroImages: string[] =
     (product as any).media?.length > 0
       ? (product as any).media
       : [DEFAULT_HERO_IMAGE];
-  const [selectedIndex, setSelectedIndex] = useState(0);
-  const [dragOffset, setDragOffset] = useState(0);
 
-  // Swipe / drag handling
-  const touchStartX = useRef<number | null>(null);
-  const handleTouchStart = (e: React.TouchEvent) => {
-    touchStartX.current = e.touches[0].clientX;
-  };
-  const handleTouchMove = (e: React.TouchEvent) => {
-    if (touchStartX.current === null) return;
-    setDragOffset(e.touches[0].clientX - touchStartX.current);
-  };
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    if (touchStartX.current === null) return;
-    const delta = e.changedTouches[0].clientX - touchStartX.current;
-    if (Math.abs(delta) >= 40) {
-      if (delta < 0)
-        setSelectedIndex((i) => Math.min(i + 1, heroImages.length - 1));
-      else setSelectedIndex((i) => Math.max(i - 1, 0));
-    }
-    setDragOffset(0);
-    touchStartX.current = null;
-  };
-
-  // Card images: use card.media from catalog if it looks like a path
   const cardImages = (construction_variants.cards ?? []).map((card) =>
     typeof card.media === "string" && card.media.startsWith("/")
       ? card.media
@@ -91,335 +76,324 @@ const ProductInternal = () => {
   );
 
   return (
-    <div
-      className="min-h-screen w-full font-sans selection:bg-[#9acd32] selection:text-white"
-      style={{
-        background:
-          "linear-gradient(to bottom, #4169E1 0%, #4169E1 60%, #FFFFFF 100%)",
-        backgroundAttachment: "scroll",
-      }}
-    >
-      {/* Blueprint Grid Overlay */}
-      <div
-        className="fixed inset-0 pointer-events-none opacity-20"
-        style={{
-          backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.3) 1px, transparent 1px), 
-                          linear-gradient(90deg, rgba(255, 255, 255, 0.3) 1px, transparent 1px)`,
-          backgroundSize: "40px 40px",
-        }}
-      ></div>
-
-      <div className="relative z-10 w-full">
-        {/* --- HERO SECTION --- */}
-        <section className="pt-20 pb-32 px-4 sm:px-6 lg:px-12">
-          <div className="max-w-7xl mx-auto flex flex-col lg:grid lg:grid-cols-12 items-center gap-12">
-            {/* Image column — comes first on mobile via order */}
-            <div className="order-first lg:order-last lg:col-span-5 w-full flex flex-col items-center lg:items-end gap-4">
-              {/* Main image — sliding strip */}
-              <div
-                className="w-full max-w-md aspect-[4/3] bg-white/15 backdrop-blur-md rounded-3xl border border-white/20 shadow-2xl overflow-hidden cursor-grab active:cursor-grabbing select-none"
-                onTouchStart={handleTouchStart}
-                onTouchMove={handleTouchMove}
-                onTouchEnd={handleTouchEnd}
-              >
-                {/* Strip: all images side-by-side, translate to selected */}
-                <div
-                  className="flex h-full"
-                  style={{
-                    width: `${heroImages.length * 100}%`,
-                    transform: `translateX(calc(${-selectedIndex * 100}% / ${heroImages.length} + ${dragOffset / heroImages.length}px))`,
-                    transition:
-                      dragOffset === 0
-                        ? "transform 0.35s cubic-bezier(0.4,0,0.2,1)"
-                        : "none",
-                  }}
-                >
-                  {heroImages.map((img, i) => (
-                    <div
-                      key={i}
-                      className="h-full shrink-0 flex items-center justify-center bg-white/5"
-                      style={{ width: `${100 / heroImages.length}%` }}
-                    >
-                      <img
-                        src={img}
-                        alt={`${hero.title} ${i + 1}`}
-                        className="w-full h-full object-contain pointer-events-none"
-                        draggable={false}
-                      />
-                    </div>
-                  ))}
-                </div>
-              </div>
-              {/* Thumbnail strip — only shown when more than 1 image */}
-              {heroImages.length > 1 && (
-                <div className="w-full max-w-md flex gap-2 overflow-x-auto p-1 scrollbar-thin scrollbar-thumb-white/30 scrollbar-track-transparent">
-                  {heroImages.map((img, i) => (
-                    <button
-                      key={i}
-                      onClick={() => setSelectedIndex(i)}
-                      className={`shrink-0 w-16 h-16 rounded-xl overflow-hidden border-2 transition-all duration-200 ${
-                        selectedIndex === i
-                          ? "border-[#9acd32] scale-105 shadow-lg"
-                          : "border-white/20 opacity-60 hover:opacity-100 hover:border-white/60"
-                      }`}
-                    >
-                      <img
-                        src={img}
-                        alt={`View ${i + 1}`}
-                        className="w-full h-full object-cover"
-                      />
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Text column */}
-            <div className="order-last lg:order-first lg:col-span-7 space-y-8 text-white">
-              <h1 className="text-5xl md:text-7xl font-black tracking-tight uppercase">
-                {hero.title}
-              </h1>
-
-              <div className="space-y-6 text-blue-50 text-lg leading-relaxed">
-                {hero.body.map((para, i) => (
-                  <p key={i} className={i === 0 ? "font-medium" : "opacity-90"}>
-                    {para}
-                  </p>
+    <div className="w-full min-h-screen bg-white text-slate-900 py-10">
+      {/* ─── Hero ─────────────────────────────────────────────────────── */}
+      <section className="w-full border-b border-slate-100">
+        <div className="grid grid-cols-1 lg:grid-cols-[62%_38%]">
+          {/* Left — image panel */}
+          <div className="border-b border-slate-100 bg-[#f8f9fa] p-6 lg:border-b-0 lg:border-r lg:p-10 xl:p-16">
+            {/* ─── Credibility bar ──────────────────────────────────────────── */}
+            <div className="w-full border-b border-slate-100 bg-slate-50">
+              <div className="flex flex-wrap items-center justify-center gap-x-7 gap-y-2 px-4 py-3 sm:px-6 md:justify-start lg:px-10 xl:px-16">
+                {CREDIBILITY_POINTS.map((point) => (
+                  <span
+                    key={point}
+                    className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-slate-500 sm:text-sm"
+                  >
+                    <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#9acd32]" />
+                    {point}
+                  </span>
                 ))}
               </div>
-
-              {/* Action Buttons */}
-              <div className="flex flex-wrap gap-4 pt-4">
-                <button className="flex items-center group">
-                  <span className="bg-[#9acd32] text-white font-black py-4 px-8 group-hover:opacity-90 transition-opacity uppercase text-sm tracking-widest">
-                    {hero.primary_cta}
-                  </span>
-                  <span className="bg-[#86b32b] text-white py-4 px-4 border-l border-white/10">
-                    <ChevronRight size={20} />
-                  </span>
-                </button>
-                <button className="flex items-center group border border-white/40">
-                  <span className="bg-white/10 text-white font-black py-4 px-8 group-hover:bg-white/20 transition-colors uppercase text-sm tracking-widest">
-                    {hero.secondary_cta}
-                  </span>
-                  <span className="bg-white/20 text-white py-4 px-4 border-l border-white/40 group-hover:bg-white/30 transition-colors">
-                    <ChevronRight size={20} />
-                  </span>
-                </button>
-              </div>
+            </div>
+            <div className="lg:sticky lg:top-20">
+              <ProductImageSlider images={heroImages} alt={hero.title} />
             </div>
           </div>
-        </section>
 
-        {/* --- CONSTRUCTION VARIANTS --- */}
-        {construction_variants.cards &&
-          construction_variants.cards.length > 0 && (
-            <section className="max-w-7xl mx-auto px-4 sm:px-6 py-24">
-              <div className="flex items-center gap-4 mb-16">
-                <h2 className="text-white text-sm font-black tracking-[0.6em] uppercase">
-                  {construction_variants.title}
-                </h2>
-                <div className="h-[1px] flex-grow bg-white/30"></div>
-              </div>
+          {/* Right — product info */}
+          <div className="flex flex-col justify-center px-6 py-10 lg:px-10 xl:px-14 xl:py-16">
+            <p className="mb-3 text-sm font-bold uppercase tracking-[0.22em] text-[#9acd32]">
+              Machine Protection Systems
+            </p>
+            <h1 className="mb-6 text-4xl font-black leading-tight tracking-tight text-slate-900 sm:text-5xl xl:text-6xl">
+              {hero.title}
+            </h1>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-                {construction_variants.cards.map((card, i) => (
-                  <div
-                    key={i}
-                    className="group flex flex-col bg-white rounded-[2rem] shadow-2xl overflow-hidden hover:scale-[1.02] transition-transform duration-500"
-                  >
-                    <div className="h-[320px] bg-white overflow-hidden relative flex items-center justify-center">
-                      {cardImages[i] ? (
-                        <img
-                          src={cardImages[i]}
-                          className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105 p-4"
-                          alt={card.title}
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-100 to-slate-200">
-                          <span className="text-blue-400 font-black uppercase tracking-widest text-xs text-center p-6">
-                            {card.title}
-                          </span>
-                        </div>
-                      )}
-                      <div className="absolute top-4 left-4 bg-white/90 backdrop-blur px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest text-blue-600">
-                        {card.tag}
-                      </div>
-                    </div>
-                    <div className="p-10 flex flex-col flex-grow">
-                      <h3 className="text-2xl font-black text-blue-900 mb-4 uppercase tracking-tight">
-                        {card.title}
-                      </h3>
-                      <p className="text-slate-600 text-base leading-relaxed mb-8">
-                        {card.description}
-                      </p>
-                      <div className="mt-auto pt-6 border-t border-slate-100 flex items-center justify-between">
-                        <span className="text-[#9acd32] font-black text-xs tracking-widest uppercase">
-                          {card.footer_label}
-                        </span>
-                        <ArrowRight size={20} className="text-blue-900" />
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-          )}
+            <div className="mb-7 space-y-3 border-t border-slate-100 pt-6">
+              {hero.body.map((para, i) => (
+                <p
+                  key={i}
+                  className={`text-base leading-relaxed sm:text-lg ${
+                    i === 0 ? "font-medium text-slate-700" : "text-slate-500"
+                  }`}
+                >
+                  {para}
+                </p>
+              ))}
+            </div>
 
-        {/* --- MANUFACTURING CAPABILITIES SECTION --- */}
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 py-20 lg:py-40">
-          <div className="bg-white rounded-[3rem] shadow-2xl overflow-hidden">
-            {/* Materials & Design */}
-            {((materials_expertise.items &&
-              materials_expertise.items.length > 0) ||
-              (design_and_customisation.items &&
-                design_and_customisation.items.length > 0)) && (
-              <div className="grid lg:grid-cols-2">
-                {materials_expertise.items &&
-                  materials_expertise.items.length > 0 && (
-                    <div className="p-8 lg:p-16 bg-slate-50 border-r border-slate-100">
-                      <h3 className="text-3xl font-black text-blue-900 mb-8 border-b-4 border-[#9acd32] inline-block uppercase">
-                        {materials_expertise.title}
-                      </h3>
-                      {materials_expertise.note && (
-                        <p className="text-slate-600 mb-8 font-medium uppercase text-xs tracking-wider">
-                          {materials_expertise.note}
-                        </p>
-                      )}
-                      <ul className="space-y-4">
-                        {materials_expertise.items.map((mat, i) => (
-                          <li
-                            key={i}
-                            className="flex items-center gap-3 text-slate-800 font-bold"
-                          >
-                            <div className="w-2 h-2 bg-[#9acd32] rotate-45 shrink-0"></div>
-                            {mat}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
-                {design_and_customisation.items &&
-                  design_and_customisation.items.length > 0 && (
-                    <div className="p-8 lg:p-16 bg-white">
-                      <h3 className="text-3xl font-black text-blue-900 mb-8 border-b-4 border-[#9acd32] inline-block uppercase">
-                        {design_and_customisation.title}
-                      </h3>
-                      {design_and_customisation.note && (
-                        <p className="text-slate-600 mb-8 uppercase text-xs tracking-wider">
-                          {design_and_customisation.note}
-                        </p>
-                      )}
-                      <div className="grid sm:grid-cols-2 gap-4">
-                        {design_and_customisation.items.map((text, i) => (
-                          <div
-                            key={i}
-                            className="bg-slate-50 p-4 rounded-xl text-xs font-bold text-blue-900 leading-relaxed border border-slate-200"
-                          >
-                            {text}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-              </div>
-            )}
-
-            {/* Manufacturing Capabilities Block */}
-            {manufacturing_capabilities.items &&
-              manufacturing_capabilities.items.length > 0 && (
-                <div className="p-8 lg:p-16 bg-[#4169e1] text-white">
-                  <h3 className="text-2xl font-black mb-12 text-center uppercase tracking-[0.3em]">
-                    {manufacturing_capabilities.title}
-                  </h3>
-                  <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-                    {manufacturing_capabilities.items.map((text, i) => (
-                      <div key={i} className="text-center group">
-                        <div className="mb-4 flex justify-center">
-                          {CAPABILITY_ICONS[i % CAPABILITY_ICONS.length]}
-                        </div>
-                        <p className="text-xs font-bold leading-relaxed opacity-80 uppercase tracking-tighter">
-                          {text}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                  {manufacturing_capabilities.note && (
-                    <div className="mt-12 text-center pt-8 border-t border-white/10">
-                      <p className="text-sm font-medium text-blue-200">
-                        {manufacturing_capabilities.note}
-                      </p>
-                    </div>
-                  )}
+            {/* Trust badges */}
+            <div className="mb-7 grid grid-cols-2 gap-2.5">
+              {CREDIBILITY_POINTS.map((p) => (
+                <div
+                  key={p}
+                  className="flex items-center gap-2 border border-slate-100 bg-slate-50 px-3 py-2.5"
+                >
+                  <CheckCircle2 size={14} className="shrink-0 text-[#9acd32]" />
+                  <span className="text-sm font-semibold text-slate-600">
+                    {p}
+                  </span>
                 </div>
-              )}
+              ))}
+            </div>
 
-            {/* Quality & Applications */}
-            {((quality_focus.items && quality_focus.items.length > 0) ||
-              (applications_served.items &&
-                applications_served.items.length > 0)) && (
-              <div className="p-8 lg:p-16 grid lg:grid-cols-2 gap-16 items-start">
-                {quality_focus.items && quality_focus.items.length > 0 && (
-                  <div className="text-slate-900">
-                    <h3 className="text-2xl font-black text-blue-900 mb-8 uppercase">
-                      {quality_focus.title}
-                    </h3>
-                    <ul className="space-y-4">
-                      {quality_focus.items.map((text, i) => (
-                        <li
-                          key={i}
-                          className="flex items-center gap-3 font-bold text-slate-700"
-                        >
-                          <ClipboardCheck
-                            size={20}
-                            className="text-[#9acd32]"
-                          />
-                          {text}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-
-                {applications_served.items &&
-                  applications_served.items.length > 0 && (
-                    <div className="bg-slate-50 p-8 rounded-3xl border-2 border-slate-100">
-                      <h3 className="text-2xl font-black text-blue-900 mb-8 uppercase">
-                        {applications_served.title}
-                      </h3>
-                      <div className="grid grid-cols-1 gap-3">
-                        {applications_served.items.map((text, i) => (
-                          <div
-                            key={i}
-                            className="bg-white px-4 py-3 rounded-lg shadow-sm border border-slate-200 text-xs font-black text-blue-900 uppercase"
-                          >
-                            • {text}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-              </div>
-            )}
-
-            {/* Final CTA Area */}
-            <div className="bg-[#4169E1] p-10 flex flex-col md:flex-row justify-between items-center gap-8 text-white">
-              <div className="text-center md:text-left">
-                <h4 className="text-2xl font-black uppercase mb-2">
-                  {cta.title}
-                </h4>
-                <p className="text-blue-100 font-medium">{cta.subtitle}</p>
-              </div>
-              <button className="bg-[#9acd32] text-white px-10 py-4 rounded-full font-black text-xs tracking-[0.2em] shadow-2xl hover:bg-white hover:text-blue-900 transition-all whitespace-nowrap">
-                {cta.button}
+            {/* CTAs */}
+            <div className="flex flex-wrap gap-3 border-t border-slate-100 pt-6">
+              <button className="flex items-center gap-2 bg-[#9acd32] px-7 py-3.5 text-sm font-black uppercase tracking-widest text-white transition hover:bg-[#89b92d]">
+                {hero.primary_cta}
+                <ChevronRight size={17} />
+              </button>
+              <button className="flex items-center gap-2 border border-slate-300 bg-white px-7 py-3.5 text-sm font-black uppercase tracking-widest text-slate-700 transition hover:bg-slate-50">
+                {hero.secondary_cta}
+                <ChevronRight size={17} />
               </button>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ─── Construction Variants ────────────────────────────────────── */}
+      {construction_variants.cards &&
+        construction_variants.cards.length > 0 && (
+          <section className="w-full border-b border-slate-100 px-4 py-16 sm:px-6 lg:px-10 xl:px-16">
+            <div className="mb-10">
+              <p className="mb-1.5 text-xs font-bold uppercase tracking-[0.22em] text-[#9acd32]">
+                Product Range
+              </p>
+              <h2 className="text-3xl font-black text-slate-900 sm:text-4xl">
+                {construction_variants.title}
+              </h2>
+            </div>
+
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
+              {construction_variants.cards.map((card, i) => (
+                <article
+                  key={i}
+                  className="group flex flex-col overflow-hidden border border-slate-200 bg-white transition-shadow duration-300 hover:shadow-xl"
+                >
+                  {/* Image */}
+                  <div className="relative flex h-72 items-center justify-center overflow-hidden bg-[#f8f9fa]">
+                    {cardImages[i] ? (
+                      <img
+                        src={cardImages[i]}
+                        className="h-full w-full object-contain p-3 transition-transform duration-500 group-hover:scale-110"
+                        alt={card.title}
+                      />
+                    ) : (
+                      <span className="text-xs font-black uppercase tracking-widest text-slate-400">
+                        {card.title}
+                      </span>
+                    )}
+                    <span className="absolute left-0 top-4 bg-[#9acd32] px-3 py-1 text-[10px] font-black uppercase tracking-widest text-white">
+                      {card.tag}
+                    </span>
+                  </div>
+
+                  {/* Content */}
+                  <div className="flex flex-1 flex-col p-6">
+                    <h3 className="mb-3 text-lg font-black uppercase tracking-tight text-slate-900 sm:text-xl">
+                      {card.title}
+                    </h3>
+                    <p className="mb-5 flex-1 text-base leading-relaxed text-slate-600">
+                      {card.description}
+                    </p>
+                    <div className="flex items-center justify-between border-t border-slate-100 pt-4">
+                      <span className="text-sm font-bold uppercase tracking-widest text-[#9acd32]">
+                        {card.footer_label}
+                      </span>
+                      <ChevronRight size={17} className="text-slate-400" />
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+        )}
+
+      {/* ─── Materials + Design ───────────────────────────────────────── */}
+      {((materials_expertise.items && materials_expertise.items.length > 0) ||
+        (design_and_customisation.items &&
+          design_and_customisation.items.length > 0)) && (
+        <section className="w-full border-b border-slate-100">
+          <div className="grid grid-cols-1 divide-y divide-slate-100 lg:grid-cols-2 lg:divide-x lg:divide-y-0">
+            {materials_expertise.items &&
+              materials_expertise.items.length > 0 && (
+                <div className="px-6 py-12 lg:px-10 xl:px-16">
+                  <p className="mb-2 text-xs font-bold uppercase tracking-[0.22em] text-[#9acd32]">
+                    Materials
+                  </p>
+                  <h2 className="mb-5 text-3xl font-black text-slate-900">
+                    {materials_expertise.title}
+                  </h2>
+                  {materials_expertise.note && (
+                    <p className="mb-6 text-base text-slate-500">
+                      {materials_expertise.note}
+                    </p>
+                  )}
+                  <ul className="space-y-3">
+                    {materials_expertise.items.map((mat, i) => (
+                      <li key={i} className="flex items-start gap-3">
+                        <span className="mt-2 h-2 w-2 shrink-0 bg-[#9acd32]" />
+                        <span className="text-base font-medium text-slate-700">
+                          {mat}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+            {design_and_customisation.items &&
+              design_and_customisation.items.length > 0 && (
+                <div className="px-6 py-12 lg:px-10 xl:px-16">
+                  <p className="mb-2 text-xs font-bold uppercase tracking-[0.22em] text-[#9acd32]">
+                    Customisation
+                  </p>
+                  <h2 className="mb-5 text-3xl font-black text-slate-900">
+                    {design_and_customisation.title}
+                  </h2>
+                  {design_and_customisation.note && (
+                    <p className="mb-6 text-base text-slate-500">
+                      {design_and_customisation.note}
+                    </p>
+                  )}
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    {design_and_customisation.items.map((text, i) => (
+                      <div
+                        key={i}
+                        className="border border-slate-200 bg-slate-50 p-4 text-base leading-relaxed text-slate-700"
+                      >
+                        {text}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+          </div>
         </section>
+      )}
+
+      {/* ─── Manufacturing Capabilities ───────────────────────────────── */}
+      {manufacturing_capabilities.items &&
+        manufacturing_capabilities.items.length > 0 && (
+          <section className="w-full bg-slate-900 px-4 py-16 sm:px-6 lg:px-10 xl:px-16">
+            <div className="mb-10 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <p className="mb-1.5 text-xs font-bold uppercase tracking-[0.22em] text-[#9acd32]">
+                  How We Build It
+                </p>
+                <h2 className="text-3xl font-black text-white sm:text-4xl">
+                  {manufacturing_capabilities.title}
+                </h2>
+              </div>
+              {manufacturing_capabilities.note && (
+                <p className="max-w-sm text-base text-slate-400 sm:text-right">
+                  {manufacturing_capabilities.note}
+                </p>
+              )}
+            </div>
+
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+              {manufacturing_capabilities.items.map((text, i) => (
+                <div
+                  key={i}
+                  className="border border-white/10 bg-white/5 p-6 transition hover:bg-white/10"
+                >
+                  <div className="mb-4 text-[#9acd32]">
+                    {CAPABILITY_ICONS[i % CAPABILITY_ICONS.length]}
+                  </div>
+                  <p className="text-base font-semibold leading-snug text-slate-200">
+                    {text}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+      {/* ─── Quality + Applications ───────────────────────────────────── */}
+      {((quality_focus.items && quality_focus.items.length > 0) ||
+        (applications_served.items &&
+          applications_served.items.length > 0)) && (
+        <section className="w-full border-b border-slate-100">
+          <div className="grid grid-cols-1 divide-y divide-slate-100 lg:grid-cols-2 lg:divide-x lg:divide-y-0">
+            {quality_focus.items && quality_focus.items.length > 0 && (
+              <div className="px-6 py-12 lg:px-10 xl:px-16">
+                <p className="mb-2 text-xs font-bold uppercase tracking-[0.22em] text-[#9acd32]">
+                  Standards
+                </p>
+                <h2 className="mb-6 text-3xl font-black text-slate-900">
+                  {quality_focus.title}
+                </h2>
+                <ul className="space-y-3">
+                  {quality_focus.items.map((text, i) => (
+                    <li key={i} className="flex items-start gap-3">
+                      <ClipboardCheck
+                        size={16}
+                        className="mt-0.5 shrink-0 text-[#9acd32]"
+                      />
+                      <span className="text-base font-medium text-slate-700">
+                        {text}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {applications_served.items &&
+              applications_served.items.length > 0 && (
+                <div className="px-6 py-12 lg:px-10 xl:px-16">
+                  <p className="mb-2 text-xs font-bold uppercase tracking-[0.22em] text-[#9acd32]">
+                    Where It's Used
+                  </p>
+                  <h2 className="mb-6 text-3xl font-black text-slate-900">
+                    {applications_served.title}
+                  </h2>
+                  <div className="grid gap-2.5 sm:grid-cols-2">
+                    {applications_served.items.map((text, i) => (
+                      <div
+                        key={i}
+                        className="flex items-center gap-2.5 border border-slate-100 bg-slate-50 px-4 py-3 text-base font-medium text-slate-700"
+                      >
+                        <span className="h-1.5 w-1.5 shrink-0 bg-[#9acd32]" />
+                        {text}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+          </div>
+        </section>
+      )}
+
+      {/* ─── CTA band ─────────────────────────────────────────────────── */}
+      <section className="w-full bg-[#9acd32] px-4 py-14 sm:px-6 lg:px-10 xl:px-16">
+        <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
+          <div>
+            <h2 className="text-3xl font-black text-white sm:text-4xl">
+              {cta.title}
+            </h2>
+            <p className="mt-1 text-base text-white/80">{cta.subtitle}</p>
+          </div>
+          <button className="shrink-0 border-2 border-white bg-transparent px-8 py-3.5 text-sm font-black uppercase tracking-widest text-white transition hover:bg-white hover:text-[#6fa020]">
+            {cta.button}
+          </button>
+        </div>
+      </section>
+
+      {/* SEO: visually hidden keywords */}
+      <div className="sr-only">
+        Machine Protection Systems for the Global Machine Tool Industry.
+        Telescopic Way Covers, CNC Machine Covers, Roll-Up Way Covers, Apron
+        Covers, Machine Tool Protection, CNC Machine Enclosures, Sheet Metal
+        Machine Enclosures, CNC Machine Guards, Custom Machine Covers. 35+ Years
+        Experience, OEM Focused Manufacturing, Custom Engineering, Made in
+        India.
       </div>
     </div>
   );
 };
 
-export default ProductInternal;
+export default ProductPage;
