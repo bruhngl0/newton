@@ -1,62 +1,65 @@
 "use client";
-
 import React, { useState } from "react";
 import "../styles/section3.scss";
 import catalogData from "../public/catalog.json";
-
-const DEFAULT_PREVIEW_IMAGE = "/heatsealed.jpg";
-
-const products = catalogData.catalog.map((item) => ({
-  id: item.id,
-  title: item.name,
-  image: item.media?.[0] || DEFAULT_PREVIEW_IMAGE,
-}));
+import Link from "next/link";
 
 const Section3 = () => {
-  const [activeProductId, setActiveProductId] = useState(products[0]?.id || "");
+  const [activeProduct, setActiveProduct] = useState(catalogData.catalog[0]);
 
-  if (!products.length) {
-    return null;
-  }
-
-  const activeProduct =
-    products.find((product) => product.id === activeProductId) || products[0];
+  const handleProductHover = (product) => {
+    setActiveProduct(product);
+  };
 
   return (
     <section className="section3">
-      <div className="section3-container">
-        {/* Left Side: Image Panel */}
-        <div className="section3-image-panel">
-          <img
-            src={activeProduct.image}
-            alt={activeProduct.title}
-            className="section3-product-image"
-          />
+      <div
+        className="section3-container"
+        onClick={() =>
+          (window.location.href = `/store/product/${activeProduct.id}`)
+        }
+      >
+        <div className="section3-left">
+          <h2 className="section3-main-title">Our Product Catalog</h2>
+          <p className="section3-main-subtitle">
+            Engineered solutions for machine protection and industrial
+            automation.
+          </p>
+          <div className="section3-image-container">
+            {activeProduct && (
+              <img
+                src={activeProduct.media[0]}
+                alt={activeProduct.name}
+                className="section3-product-image"
+              />
+            )}
+          </div>
         </div>
-
-        {/* Right Side: Menu */}
-        <div className="section3-menu-panel">
-          <p className="section3-subtitle">Discover SignAge Products</p>
-
-          <ul className="section3-menu-list">
-            {products.map((item) => (
-              <li
-                key={item.id}
-                className={`section3-menu-item ${
-                  activeProduct.id === item.id ? "active" : ""
+        <div className="section3-right">
+          <div className="section3-product-list">
+            {catalogData.catalog.map((product) => (
+              <div
+                key={product.id}
+                className={`section3-product-card ${
+                  activeProduct.id === product.id ? "active" : ""
                 }`}
-                onMouseEnter={() => setActiveProductId(item.id)}
-                onFocus={() => setActiveProductId(item.id)}
+                onMouseEnter={() => handleProductHover(product)}
               >
-                <a
-                  href={`/store/product/${item.id}`}
-                  className="section3-menu-link"
-                >
-                  {item.title}
-                </a>
-              </li>
+                <div className="section3-card-content">
+                  <h3 className="section3-product-title">{product.name}</h3>
+                  <p className="section3-product-description">
+                    {product.hero.body[0].substring(0, 100)}...
+                  </p>
+                  <Link
+                    href={`/store/product/${product.id}`}
+                    className="section3-product-link"
+                  >
+                    View Details
+                  </Link>
+                </div>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
       </div>
     </section>
