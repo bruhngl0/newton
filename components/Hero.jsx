@@ -240,7 +240,7 @@ const Hero = () => {
 
         <button className="scroll-indicator">
           <span>↓</span>
-          <span>Scroll to explore</span>
+          <span>Scroll to Explore</span>
         </button>
       </section>
     </div>
