@@ -98,7 +98,9 @@ body {
   cursor: pointer;
   border-radius: 50%;
   backdrop-filter: blur(8px);
-  transition: background 0.3s ease, transform 0.3s ease;
+  transition:
+    background 0.3s ease,
+    transform 0.3s ease;
 
   &:hover {
     background: rgba(255, 255, 255, 0.25);
@@ -106,20 +108,28 @@ body {
 
   &--prev {
     left: 32px;
-    &:hover { transform: translateY(-50%) translateX(-3px); }
+    &:hover {
+      transform: translateY(-50%) translateX(-3px);
+    }
   }
 
   &--next {
     right: 32px;
-    &:hover { transform: translateY(-50%) translateX(3px); }
+    &:hover {
+      transform: translateY(-50%) translateX(3px);
+    }
   }
 
   @media (max-width: 768px) {
     width: 44px;
     height: 44px;
     font-size: 36px;
-    &--prev { left: 12px; }
-    &--next { right: 12px; }
+    &--prev {
+      left: 12px;
+    }
+    &--next {
+      right: 12px;
+    }
   }
 }
 
@@ -143,7 +153,7 @@ body {
 }
 
 .hero-text {
-  font-size: clamp(40px, 9vw, 100px);
+  font-size: clamp(40px, 1vw, 100px);
   font-weight: 400;
   color: $white;
   text-transform: uppercase;
@@ -154,7 +164,7 @@ body {
 }
 
 .hero-text-tag {
-  font-size: clamp(16px, 2.4vw, 36px);
+  font-size: clamp(16px, 1vw, 36px);
   font-weight: 400;
   color: $white;
   text-transform: uppercase;
@@ -505,4 +515,3 @@ body {
 }
 
 // In hero.scss - optimize the hero image rendering
-

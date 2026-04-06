@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import "../styles/section3.scss";
 import catalogData from "../public/catalog.json";
-import Link from "next/link";
 
 const Section3 = () => {
   const [activeProduct, setActiveProduct] = useState(catalogData.catalog[0]);
@@ -26,7 +25,9 @@ const Section3 = () => {
           </div>
         </div>
         <div className="section3-right">
-          <h2 className="section3-discover-title">Discover Signage Products</h2>
+          <h2 className="section3-discover-title">
+            Explore Machine Protection Systems
+          </h2>
           <ul className="section3-product-list">
             {catalogData.catalog.map((product) => (
               <li

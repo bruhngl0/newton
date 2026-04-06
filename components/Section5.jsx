@@ -6,24 +6,24 @@ import "../styles/section5.scss";
 const Section5 = () => {
   const criteria = [
     {
-      img: "/eye.svg", // Replace with your actual paths
-      title: "Want clear visibility over their numbers",
+      img: "/eye.svg",
+      title: "Machine Tool Manufacturers",
     },
     {
       img: "/cash.svg",
-      title: "Are tired of flying blind or relying on gut feel",
+      title: "CNC Equipment Builders",
     },
     {
       img: "/target.svg",
-      title: "Have been using cash as a measure of profitability",
+      title: "Industrial Automation Integrators",
     },
     {
       img: "/target.svg",
-      title: "Value accuracy, reporting and strategic insights",
+      title: "Heavy Engineering Applications",
     },
     {
       img: "/target.svg",
-      title: "Need the benefits of an in-house finance team",
+      title: "Manufacturing and Metalworking Plants",
     },
   ];
 
@@ -31,10 +31,11 @@ const Section5 = () => {
     <section className="section5">
       <div className="section5-content">
         <div className="section5-header">
-          <p className="section5-subtitle">READY TO LEVEL UP?</p>
-          <h2 className="section5-title">Is SignAge right for you?</h2>
+          <p className="section5-subtitle">INDUSTRIES WE SERVE</p>
+          <h2 className="section5-title">Built for demanding industrial applications</h2>
           <p className="section5-description">
-            We work with established businesses who:
+            We support OEMs and manufacturers looking for reliable
+            machine protection systems and custom sheet metal enclosures.
           </p>
         </div>
 
@@ -52,9 +53,9 @@ const Section5 = () => {
 
           <div className="criteria-card cta-card">
             <div className="cta-content">
-              <p className="cta-text">Sound like you?</p>
+              <p className="cta-text">Need a custom solution?</p>
               <div className="cta-action">
-                <a href="#contact" className="cta-link">
+                <a href="/#contact" className="cta-link">
                   Let's talk →
                 </a>
               </div>

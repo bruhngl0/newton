@@ -9,54 +9,54 @@ const Section7 = () => {
   const faqs = [
     {
       question:
-        "What's the difference between bookkeeping and what Visify does?",
+        "What types of machine protection systems do you manufacture?",
       answer:
-        "Bookkeeping records what happens financially in a business, but Visify takes it further to act as your outsourced finance team, providing financial insights, forecasting, and strategic advice to help you make confident decisions and drive growth.",
+        "We manufacture telescopic way covers, roll-up covers, apron covers, CNC machine enclosures, and custom machine covers designed for industrial use.",
     },
     {
-      question: "Do you offer tax services?",
+      question: "Do you support custom dimensions and OEM specifications?",
       answer:
-        "While we work closely with tax professionals, we focus on providing comprehensive bookkeeping, financial reporting, and strategic advisory services. We can coordinate with your tax accountant to ensure seamless service.",
+        "Yes. Our team develops custom-built solutions around your machine envelope, travel range, mounting conditions, and performance requirements.",
     },
     {
-      question: "How much do your packages cost?",
+      question: "Which industries do you serve?",
       answer:
-        "Our packages are tailored to your business needs and size. We offer flexible pricing based on transaction volume, complexity, and level of service required. Contact us for a personalized quote.",
+        "We work with machine tool manufacturers, CNC equipment builders, industrial automation teams, heavy engineering firms, and metalworking plants.",
     },
     {
-      question: "Can I start with one package and upgrade later?",
+      question: "How do your products perform in harsh shop floor environments?",
       answer:
-        "Absolutely! Our packages are designed to scale with your business. You can start with a package that suits your current needs and upgrade as your business grows and requires more comprehensive services.",
+        "Our products are engineered for coolant exposure, metal chips, high-speed operation, and continuous machine cycles to ensure dependable long-term performance.",
     },
     {
-      question: "What software or tools do you use (e.g, Xero)?",
+      question: "Can you manufacture both standard and custom products?",
       answer:
-        "We primarily work with Xero, MYOB, and other leading accounting platforms. We also integrate tools like Fathom for reporting, Dext for receipt management, and XBert for automation to provide you with the best financial infrastructure.",
+        "Yes. We produce standard configurations and also build custom protection systems tailored to specific machine and process requirements.",
     },
     {
-      question: "How do you work with clients day-to-day?",
+      question: "Do you provide support during development and fitment?",
       answer:
-        "We maintain regular communication through your preferred channels - email, phone, or video calls. You'll have a dedicated team member who understands your business, and we provide monthly reports and strategic sessions to keep you informed and aligned.",
+        "Yes. We collaborate during requirement definition, drawing review, and production planning to help ensure accurate fit and function at installation.",
     },
     {
-      question: "What's included in your monthly reports?",
+      question: "What materials and fabrication capabilities do you have?",
       answer:
-        "Our monthly reports include profit & loss statements, balance sheets, cash flow analysis, key performance indicators (KPIs), budget vs. actual comparisons, and actionable insights tailored to your business goals.",
+        "We specialize in precision sheet metal fabrication and machine protection assemblies with strong focus on dimensional accuracy and durability.",
     },
     {
-      question: "How do you ensure my data is accurate and secure?",
+      question: "How do you ensure quality consistency?",
       answer:
-        "We use cloud-based platforms with bank-level encryption, implement multi-factor authentication, conduct regular reconciliations, and follow strict internal quality control processes. Your data security and accuracy are our top priorities.",
+        "Our manufacturing process follows structured engineering checks, controlled fabrication practices, and inspection routines to maintain reliable quality across batches.",
     },
     {
-      question: "How quickly will I see value from your services?",
+      question: "Can you supply for domestic and international customers?",
       answer:
-        "Most clients notice improved financial clarity within the first month. You'll receive your first comprehensive report within 30 days, and as we learn your business, our insights and strategic advice become increasingly valuable over time.",
+        "Yes. We support machine tool manufacturers and OEMs in domestic and international markets with consistent communication and dependable delivery.",
     },
     {
-      question: "Do you work with businesses outside of Bundaberg, Queensland?",
+      question: "How do I request a quote for my machine application?",
       answer:
-        "Yes! While we're based in Bundaberg, we work with businesses across Australia. Our cloud-based systems and virtual communication tools allow us to provide seamless service regardless of your location.",
+        "Share your machine details, operating conditions, travel dimensions, and any available drawings through our contact form. Our team will review and respond with the right proposal.",
     },
   ];
 

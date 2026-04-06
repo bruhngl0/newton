@@ -5,12 +5,12 @@ import "../styles/section4.scss";
 
 const Section4 = () => {
   const benefits = [
-    "Save time and avoid end-of-year stress",
-    "Clear reporting that makes sense",
-    "Compliance taken care of, month-by-month",
-    "Data-backed insights, not guesswork",
-    "Advisory support to help you grow smarter",
-    "A partner who feels like part of your team",
+    "35+ years of manufacturing experience in machine tool protection",
+    "OEM-focused engineering with precise fit and function",
+    "Custom-built solutions for specific machine layouts",
+    "Precision sheet metal fabrication with dimensional accuracy",
+    "Reliable performance in coolant, chip, and high-speed environments",
+    "Long-term customer partnerships with dependable delivery",
   ];
 
   return (
@@ -24,11 +24,12 @@ const Section4 = () => {
           </div>
 
           <div className="section4-right">
-            <p className="section4-subtitle">YOUR TRUSTED FINANCE TEAM</p>
+            <p className="section4-subtitle">WHY CHOOSE SIGN AGE</p>
             <h2 className="section4-title">Why partner with SignAge?</h2>
             <p className="section4-description">
-              We're more than accountants and bookkeepers - we're your strategic
-              finance team helping you grow with clarity and confidence.
+              We combine engineering discipline, modern manufacturing,
+              and practical machine tool expertise to deliver protection
+              systems that perform consistently in industrial environments.
             </p>
 
             <ul className="benefits-list">
@@ -67,7 +68,7 @@ const Section4 = () => {
       </section>
 
       <div className="paperstrip">
-        <img src="paperstrip.webp" />
+        <img src="paperstrip.webp" alt="Decorative separator" />
       </div>
     </>
   );

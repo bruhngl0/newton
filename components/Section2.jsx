@@ -5,32 +5,33 @@ const Section2 = () => {
     <section className="clarity">
       <div className="clarity-top">
         <span className="clarity-eyebrow">
-          READY TO LEVEL UP YOUR BUSINESS?
+          MACHINE PROTECTION EXPERTISE
         </span>
 
         <div className="clarity-header">
           <div className="clarity-left">
             <h1>
-              Clarity for today. Insight from yesterday.
+              Reliable protection systems
               <br />
-              Growth for tomorrow.
+              for CNC and industrial machinery.
             </h1>
 
             <p>
-              Running a growing business means juggling the numbers, the people
-              and the future – all at once.
+              We design and manufacture custom machine covers, way covers,
+              and enclosures that protect equipment from coolant, chips,
+              and demanding operating conditions.
             </p>
           </div>
 
           <div className="clarity-right">
             <p>
-              At SignAge, we aim to make things simpler. Our three tailored
-              service levels – Today, Yesterday, Tomorrow – build on each other
-              to give you accurate records, clear reports and the insights to
-              grow with confidence.
+              With over three decades of manufacturing experience, our team
+              delivers machine tool protection systems with precision,
+              durability, and seamless integration for OEM and retrofit
+              applications.
             </p>
 
-            <a href="#" className="clarity-link">
+            <a href="/store/product/telescopic-steel-way-covers" className="clarity-link">
               Explore our products →
             </a>
           </div>
@@ -39,34 +40,41 @@ const Section2 = () => {
 
       <div className="clarity-cards">
         <div className="clarity-card">
-          <h3>Product1</h3>
-          <span className="clarity-sub">Keep it accurate.</span>
+          <h3>Telescopic Way Covers</h3>
+          <span className="clarity-sub">Heavy-duty linear axis protection.</span>
           <p>
-            day-to-day operations handled, records accurate, compliance sorted
+            Engineered telescopic way covers for CNC machine protection with
+            high dimensional accuracy and long service life.
           </p>
 
           <div className="clarity-visual today">
-            <img src="today.webp" />
+            <img src="today.webp" alt="Telescopic way covers" />
           </div>
         </div>
 
         <div className="clarity-card">
-          <h3>Product2</h3>
-          <span className="clarity-sub">Know where you stand.</span>
-          <p>reports and KPIs to track your progress and performance</p>
+          <h3>Roll-Up and Apron Covers</h3>
+          <span className="clarity-sub">Compact protection for moving elements.</span>
+          <p>
+            Durable roll-up way covers and apron covers designed to handle
+            coolant exposure, chips, and repetitive machine movement.
+          </p>
 
           <div className="clarity-visual yesterday">
-            <img src="yesterday.webp" />
+            <img src="yesterday.webp" alt="Roll-up and apron machine covers" />
           </div>
         </div>
 
         <div className="clarity-card">
-          <h3>Product3</h3>
-          <span className="clarity-sub">See what’s next.</span>
-          <p>data-driven insights and advisory to help you grow smarter</p>
+          <h3>CNC Machine Enclosures</h3>
+          <span className="clarity-sub">Precision sheet metal assemblies.</span>
+          <p>
+            Custom CNC machine enclosures and sheet metal machine enclosures
+            developed for OEM specifications and operating conditions.
+          </p>
 
           <div className="clarity-visual tomorrow">
-            <img src="tomorrow.webp" />
+            <img src="tomorrow.webp" alt="CNC machine enclosure" />
           </div>
         </div>
       </div>

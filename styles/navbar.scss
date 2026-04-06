@@ -25,6 +25,25 @@ $white: #ffffff;
   }
 }
 
+.header-solid {
+  background: rgba(255, 255, 255, 0.94);
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+  backdrop-filter: blur(8px);
+
+  .header-logo,
+  .header-brand {
+    color: #0f172a;
+  }
+
+  .header-nav a {
+    color: #0f172a;
+
+    &::after {
+      background: #0f172a;
+    }
+  }
+}
+
 .menu-toggle {
   width: 48px;
   height: 48px;

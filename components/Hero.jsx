@@ -11,21 +11,21 @@ const Hero = () => {
   const touchStartRef = useRef(null);
 
   const heroImagesRef = useRef([]);
-  const heroTextRef = useRef(null);
+  const heroTextRefs = useRef([]);
   const carouselInterval = useRef(null);
 
   const carouselImages = [
     {
       url: "https://images.unsplash.com/photo-1464219789935-c2d9d9aba644?w=1600&q=80",
-      alt: "Lightship AE1 Interior with Skylights",
+      alt: "Machine protection system in industrial environment",
     },
     {
       url: "https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?w=1600&q=80",
-      alt: "Lightship AE1 Living Space",
+      alt: "CNC machine enclosure and precision guarding",
     },
     {
       url: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1600&q=80",
-      alt: "Lightship AE1 on the Road",
+      alt: "Custom machine cover solution for heavy engineering",
     },
   ];
 
@@ -36,19 +36,42 @@ const Hero = () => {
     }, 5000);
   }, [carouselImages.length]);
 
+  const goToSlide = useCallback(
+    (index) => {
+      if (isAnimatingRef.current) return;
+      setCurrentSlide(index);
+      startInterval();
+    },
+    [startInterval],
+  );
+
+  const setHeroTextRef = (el, index) => {
+    heroTextRefs.current[index] = el;
+  };
+
   // Initial entry animation
   useEffect(() => {
+    const textNodes = heroTextRefs.current.filter(Boolean);
+
     gsap.set(heroImagesRef.current[0], { opacity: 1, scale: 1 });
+    gsap.set(textNodes, { opacity: 0, y: 46 });
+
     const tl = gsap.timeline();
     tl.from(heroImagesRef.current[0], {
       scale: 1.15,
       opacity: 0,
       duration: 1.6,
       ease: "power3.out",
-    }).from(
-      heroTextRef.current,
-      { y: 80, opacity: 0, duration: 1.1, ease: "power3.out" },
-      "-=0.9",
+    }).to(
+      textNodes,
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.95,
+        ease: "power3.out",
+        stagger: 0.12,
+      },
+      "-=0.95",
     );
   }, []);
 
@@ -76,17 +99,22 @@ const Hero = () => {
       },
     });
 
-    tl.to(prevImage, {
-      opacity: 0,
-      scale: 1.05,
-      duration: 0.9,
-      ease: "power2.inOut",
-    }).fromTo(
-      currentImage,
-      { opacity: 0, scale: 1.1 },
-      { opacity: 1, scale: 1, duration: 1.3, ease: "power2.out" },
-      "-=0.5",
-    );
+    tl.to(
+        prevImage,
+        {
+          opacity: 0,
+          scale: 1.05,
+          duration: 0.9,
+          ease: "power2.inOut",
+        },
+        0,
+      )
+      .fromTo(
+        currentImage,
+        { opacity: 0, scale: 1.1 },
+        { opacity: 1, scale: 1, duration: 1.3, ease: "power2.out" },
+        0.4,
+      );
   }, [currentSlide]);
 
   // Pause on scroll, resume after
@@ -108,19 +136,15 @@ const Hero = () => {
   useEffect(() => {
     const handleKey = (e) => {
       if (e.key === "ArrowLeft")
-        goToSlide((currentSlide - 1 + carouselImages.length) % carouselImages.length);
+        goToSlide(
+          (currentSlide - 1 + carouselImages.length) % carouselImages.length,
+        );
       if (e.key === "ArrowRight")
         goToSlide((currentSlide + 1) % carouselImages.length);
     };
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
-  }, [currentSlide, carouselImages.length]);
-
-  const goToSlide = (index) => {
-    if (isAnimatingRef.current) return;
-    setCurrentSlide(index);
-    startInterval();
-  };
+  }, [currentSlide, carouselImages.length, goToSlide]);
 
   // Touch / swipe support
   const handleTouchStart = (e) => {
@@ -132,7 +156,9 @@ const Hero = () => {
     if (Math.abs(delta) > 50) {
       delta > 0
         ? goToSlide((currentSlide + 1) % carouselImages.length)
-        : goToSlide((currentSlide - 1 + carouselImages.length) % carouselImages.length);
+        : goToSlide(
+            (currentSlide - 1 + carouselImages.length) % carouselImages.length,
+          );
     }
     touchStartRef.current = null;
   };
@@ -159,16 +185,24 @@ const Hero = () => {
         </div>
 
         <div className="hero-content">
-          <h1 className="hero-text" ref={heroTextRef}>
-            SIGN AGE
+          <h1 className="hero-text" ref={(el) => setHeroTextRef(el, 0)}>
+            Machine Protection Systems for the Global Machine Tool Industry
           </h1>
-          <h4 className="hero-text-tag">
-            Global Standards, Personal Partnerships.
-          </h4>
-          <p className="hero-text-des">
-            We pair 25 years of world-class manufacturing precision with a
-            commitment to personal relationships, ensuring your brand commands
-            attention in any marketplace.
+
+          <h6 className="hero-text-tag" ref={(el) => setHeroTextRef(el, 1)}>
+            Telescopic Way Covers, Roll-Up Covers, Apron Covers, and CNC Machine
+            Enclosures.
+          </h6>
+
+          <p className="hero-text-des" ref={(el) => setHeroTextRef(el, 2)}>
+            35 plus years experience | OEM focused manufacturing | Custom
+            engineering | Made in India
+          </p>
+
+          <p className="hero-text-des" ref={(el) => setHeroTextRef(el, 3)}>
+            Specialists in machine tool protection systems for CNC and
+            industrial machinery, built for long-term performance in demanding
+            shop floor environments.
           </p>
         </div>
 
@@ -176,7 +210,10 @@ const Hero = () => {
         <button
           className="carousel-arrow carousel-arrow--prev"
           onClick={() =>
-            goToSlide((currentSlide - 1 + carouselImages.length) % carouselImages.length)
+            goToSlide(
+              (currentSlide - 1 + carouselImages.length) %
+                carouselImages.length,
+            )
           }
           aria-label="Previous slide"
         >

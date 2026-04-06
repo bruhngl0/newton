@@ -30,17 +30,17 @@ const Section8 = () => {
 
   return (
     <>
-      <section className="section8">
+      <section className="section8" id="contact">
         <div className="section8-content">
           <div className="section8-left">
             <p className="section8-subtitle">READY TO GET STARTED?</p>
             <h2 className="section8-title">
-              Let's bring some clarity to your business numbers
+              Let us engineer the right protection system for your machine
             </h2>
             <p className="section8-description">
-              Ready to stop flying blind and start making data-backed decisions?
-              Fill in your details and let's talk about the clarity your
-              business needs.
+              Share your requirement and our engineering team will recommend
+              the right telescopic covers, roll-up covers, apron covers,
+              or CNC machine enclosure for your application.
             </p>
           </div>
 
@@ -130,13 +130,13 @@ const Section8 = () => {
                     <input
                       type="radio"
                       name="interest"
-                      value="today"
-                      checked={formData.interest === "today"}
+                      value="telescopic-way-covers"
+                      checked={formData.interest === "telescopic-way-covers"}
                       onChange={handleInputChange}
                     />
                     <span className="radio-custom"></span>
                     <span className="radio-text">
-                      Today (day-to day operations)
+                      Telescopic way covers
                     </span>
                   </label>
 
@@ -144,13 +144,13 @@ const Section8 = () => {
                     <input
                       type="radio"
                       name="interest"
-                      value="yesterday"
-                      checked={formData.interest === "yesterday"}
+                      value="roll-up-and-apron-covers"
+                      checked={formData.interest === "roll-up-and-apron-covers"}
                       onChange={handleInputChange}
                     />
                     <span className="radio-custom"></span>
                     <span className="radio-text">
-                      Yesterday (reporting + insights)
+                      Roll-up and apron covers
                     </span>
                   </label>
 
@@ -158,13 +158,13 @@ const Section8 = () => {
                     <input
                       type="radio"
                       name="interest"
-                      value="tomorrow"
-                      checked={formData.interest === "tomorrow"}
+                      value="cnc-machine-enclosures"
+                      checked={formData.interest === "cnc-machine-enclosures"}
                       onChange={handleInputChange}
                     />
                     <span className="radio-custom"></span>
                     <span className="radio-text">
-                      Tomorrow (advisory + forecasting)
+                      CNC machine enclosures
                     </span>
                   </label>
 
@@ -172,12 +172,12 @@ const Section8 = () => {
                     <input
                       type="radio"
                       name="interest"
-                      value="not-sure"
-                      checked={formData.interest === "not-sure"}
+                      value="custom-machine-covers"
+                      checked={formData.interest === "custom-machine-covers"}
                       onChange={handleInputChange}
                     />
                     <span className="radio-custom"></span>
-                    <span className="radio-text">Not sure yet</span>
+                    <span className="radio-text">Custom machine covers</span>
                   </label>
                 </div>
               </div>
@@ -195,8 +195,8 @@ const Section8 = () => {
                   />
                   <span className="checkbox-custom"></span>
                   <span className="checkbox-text">
-                    Send me insights, tools and tips to help my business grow
-                    smarter.
+                    Send product updates, capability news, and application
+                    insights from Sign Age.
                   </span>
                 </label>
               </div>
@@ -211,7 +211,7 @@ const Section8 = () => {
               </p>
 
               <button type="submit" className="submit-button">
-                Book your free clarity call
+                Request engineering consultation
               </button>
             </form>
           </div>
@@ -220,6 +220,7 @@ const Section8 = () => {
       <div className="paper-one" style={{ backgroundColor: "transparent" }}>
         <img
           src="paperstrip.webp"
+          alt="Decorative separator"
           style={{
             backgroundColor: "#4169E1",
             transform: "rotate(180deg)",

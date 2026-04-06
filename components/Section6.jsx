@@ -9,37 +9,43 @@ const Section6 = () => {
 
   const testimonials = [
     {
-      text: "Alex and the team have been phenomenal for my business. They are on the ball, do what they say they will do and have freed me up to just focus on my business. I would highly recommend them to anyone looking for a local bookkeeping service.",
-      name: "Jacob Arden",
-      position: "Black Lab Finance, Director",
-      initials: "JA",
+      text: "The telescopic way covers supplied by Sign-Age integrated perfectly with our CNC line. Build quality, fit, and finish were excellent, and delivery commitments were met as promised.",
+      name: "Senior Production Manager",
+      position: "Machine Tool OEM",
+      initials: "PM",
     },
     {
-      text: "Working with Visify has transformed how we manage our finances. Their insights and support have been invaluable to our growth.",
-      name: "Sarah Mitchell",
-      position: "Tech Innovations, CEO",
-      initials: "SM",
+      text: "We needed custom machine covers for harsh operating conditions. Their engineering team understood the requirement quickly and delivered a robust, production-ready solution.",
+      name: "Plant Engineering Lead",
+      position: "Industrial Manufacturing Facility",
+      initials: "EL",
     },
     {
-      text: "The level of professionalism and attention to detail is outstanding. Visify has become an integral part of our team.",
-      name: "Michael Chen",
-      position: "Green Solutions, Founder",
-      initials: "MC",
+      text: "From first drawing review to final dispatch, communication stayed clear and technical. We value the long-term reliability of their products on our machines.",
+      name: "Operations Head",
+      position: "CNC Equipment Builder",
+      initials: "OH",
     },
   ];
 
-  const platformLogos = ["Xero", "MYOB", "Fathom", "XBert", "Dext"];
+  const platformLogos = [
+    "Telescopic Way Covers",
+    "Roll-Up Covers",
+    "Apron Covers",
+    "CNC Machine Enclosures",
+    "Custom Machine Covers",
+  ];
 
   const clientLogos = [
-    { name: "Ray White" },
-    { name: "Steel Transport" },
-    { name: "Black Lab Finance", highlight: true },
-    { name: "The Agency" },
-    { name: "Lakefield" },
-    { name: "Cain Wood Electrical" },
-    { name: "Bundaberg Brewed Drinks" },
-    { name: "Bundaberg Regional Council" },
-    { name: "Bargara Beach Caravan Park" },
+    { name: "Machine Tool Manufacturing" },
+    { name: "CNC Equipment" },
+    { name: "Industrial Automation", highlight: true },
+    { name: "Heavy Engineering" },
+    { name: "Metalworking" },
+    { name: "OEM Applications" },
+    { name: "Production Lines" },
+    { name: "Precision Fabrication" },
+    { name: "Industrial Machinery" },
   ];
 
   const changeTestimonial = (index) => {
@@ -56,7 +62,7 @@ const Section6 = () => {
       {/* Platforms Bar */}
       <div className="platforms-bar">
         <p className="platforms-text">
-          POWERED BY LEADING ACCOUNTING AND AUTOMATION PLATFORMS
+          ENGINEERED SOLUTIONS ACROSS CORE MACHINE PROTECTION CATEGORIES
         </p>
         <div className="platforms-logos">
           {platformLogos.map((name, i) => (
@@ -75,7 +81,7 @@ const Section6 = () => {
         <div className="testimonials-left">
           <p className="section6-subtitle">TESTIMONIALS</p>
           <h2 className="section6-title">
-            Hear it from the businesses we&apos;ve helped
+            Trusted by machine builders and industrial teams
           </h2>
 
           <div className="testimonial-nav">
